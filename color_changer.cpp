@@ -193,6 +193,23 @@ HSV *Color_Changer::cmyk_to_hsv(CMYK *cmyk_input){
 	return hsv_neo;
 };
 
+void showRGB(){
+	cout << R: << Color_Changer::rgb->r << endl;
+	cout << G: << Color_Changer::rgb->g << endl;
+	cout << B: << Color_Changer::rgb->b << endl;
+ };
+void showCNYK(){
+	cout << C: << Color_Changer::cmyk->c << endl;
+	cout << M: << Color_Changer::cmyk->m << endl;
+	cout << Y: << Color_Changer::cmyk->y << endl;
+	cout << K: << Color_Changer::cmyk->k << endl;
+};
+void showHSV(
+	cout << H: << Color_Changer::hsv->h << endl;
+	cout << S: << Color_Changer::hsv->s << endl;
+	cout << V: << Color_Changer::hsv->v << endl;
+	);
+
 int main(){
 	return 0;
 }
