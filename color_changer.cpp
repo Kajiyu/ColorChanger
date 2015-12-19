@@ -135,33 +135,84 @@ CMYK *Color_Changer::rgb_to_cmyk(RGB *rgb_input){
 	return cmyk_neo;
 };
 
+float Color_Changer::rgb_max(RGB *rgb_input){
+	float max;
+	float rr = rgb_input->r;
+	float gg = rgb_input->g;
+	float bb = rgb_input->b;
+
+	if(rr > gg){
+		if(rr > bb){
+			max = rr;
+		} else {
+			max = bb;
+		}
+	} else {
+		if (gg > bb){
+			max = gg;
+		} else {
+			max = bb;
+		}
+	}
+
+	return max;
+}
+
+float Color_Changer::rgb_min(RGB *rgb_input){
+	float min;
+	float rr = rgb_input->r;
+	float gg = rgb_input->g;
+	float bb = rgb_input->b;
+
+	if(rr < gg){
+		if(rr < bb){
+			min = rr;
+		} else {
+			min = bb;
+		}
+	} else {
+		if (gg < bb){
+			min = gg;
+		} else {
+			min = bb;
+		}
+	}
+
+	return min;
+}
+
 HSV *Color_Changer::rgb_to_hsv(RGB *rgb_input){
 
 	HSV *hsv_neo;
 	hsv_neo = new HSV;
-	float *max = max((rgb_input->r), max((rgb_input->g),(rgb_input->b)));
-  float *min = min((rgb_input->r), min((rgb_input->g), (rgb_input->b)));
+	float rr = rgb_input->r;
+	float gg = rgb_input->g;
+	float bb = rgb_input->b;
+
+	float max = Color_Changer::rgb_max(rgb_input);
+	float min = Color_Changer::rgb_min(rgb_input);
         
   // h
-  if(*max == *min){
+  if(max == min){
     (hsv_neo->h) = 0;
-  } else if(*max == (rgb_input->r)){
-    (hsv_neo->h) = (float)((60 * ((rgb_input->g) - (rgb_input->b)) / (*max - *min) + 360) % 360);
-  } else if(*max == (rgb_input->g)){
-    (hsv_neo->h) = (60 * ((rgb_input->b) - (rgb_input->r)) / (*max - *min)) + 120;
-  } else if(*max == (rgb_input->b)){
-    (hsv_neo->h) = (60 * ((rgb_input->r) - (rgb_input->g)) / (*max - *min)) + 240;
+  } else if(max == rr){
+    int i = (int)(60 * (gg - bb) / (max - min) + 360) % 360;
+    (hsv_neo->h) = (float)i;
+  } else if(max == gg){
+    (hsv_neo->h) = (60 * (bb - rr) / (max - min)) + 120;
+  } else if(max == bb){
+    (hsv_neo->h) = (60 * (rr - gg) / (max - min)) + 240;
   }
   
   // s
-  if(*max == 0){
+  if(max == 0){
   	(hsv_neo->s) = 0;
   } else{
-  	(hsv_neo->s) = (255 * ((*max - *min) / *max));
+  	(hsv_neo->s) = (255 * ((max - min) / max));
   }
         
   // v
-  (hsv_neo->v) = *max;
+  (hsv_neo->v) = max;
 
 	return hsv_neo;
 };
@@ -193,22 +244,23 @@ HSV *Color_Changer::cmyk_to_hsv(CMYK *cmyk_input){
 	return hsv_neo;
 };
 
-void showRGB(){
-	cout << R: << Color_Changer::rgb->r << endl;
-	cout << G: << Color_Changer::rgb->g << endl;
-	cout << B: << Color_Changer::rgb->b << endl;
+void Color_Changer::showRGB(){
+	cout << "R:" << Color_Changer::rgb->r << endl;
+	cout << "G:" << Color_Changer::rgb->g << endl;
+	cout << "B:" << Color_Changer::rgb->b << endl;
  };
-void showCNYK(){
-	cout << C: << Color_Changer::cmyk->c << endl;
-	cout << M: << Color_Changer::cmyk->m << endl;
-	cout << Y: << Color_Changer::cmyk->y << endl;
-	cout << K: << Color_Changer::cmyk->k << endl;
+void Color_Changer::showCNYK(){
+	cout << "C:" << Color_Changer::cmyk->c << endl;
+	cout << "M:" << Color_Changer::cmyk->m << endl;
+	cout << "Y:" << Color_Changer::cmyk->y << endl;
+	cout << "K:" << Color_Changer::cmyk->k << endl;
 };
-void showHSV(
-	cout << H: << Color_Changer::hsv->h << endl;
-	cout << S: << Color_Changer::hsv->s << endl;
-	cout << V: << Color_Changer::hsv->v << endl;
-	);
+void Color_Changer::showHSV(){
+	cout << "H:" << Color_Changer::hsv->h << endl;
+	cout << "S:" << Color_Changer::hsv->s << endl;
+	cout << "V:" << Color_Changer::hsv->v << endl;
+	};
+
 
 int main(){
 	return 0;

@@ -58,6 +58,9 @@ private:
 
 	HSV *rgb_to_hsv(RGB *rgb_input);
 	HSV *cmyk_to_hsv(CMYK *cmyk_input);
+
+	float rgb_max(RGB *rgb_input);
+	float rgb_min(RGB *rgb_input);
 };
 
 #endif 
